@@ -42,18 +42,34 @@ declare global {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'home' | 'reviews' | 'submit'>('home')
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<{
+    id: number
+    first_name: string
+    last_name?: string
+    username?: string
+  } | null>(null)
 
   useEffect(() => {
-    // Инициализация Telegram WebApp
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.ready()
-      window.Telegram.WebApp.expand()
-      
-      const telegramUser = window.Telegram.WebApp.initDataUnsafe.user
-      if (telegramUser) {
-        setUser(telegramUser)
+    // Загружаем Telegram WebApp SDK
+    const script = document.createElement('script')
+    script.src = 'https://telegram.org/js/telegram-web-app.js'
+    script.async = true
+    script.onload = () => {
+      // Инициализация Telegram WebApp
+      if (window.Telegram?.WebApp) {
+        window.Telegram.WebApp.ready()
+        window.Telegram.WebApp.expand()
+        
+        const telegramUser = window.Telegram.WebApp.initDataUnsafe.user
+        if (telegramUser) {
+          setUser(telegramUser)
+        }
       }
+    }
+    document.head.appendChild(script)
+
+    return () => {
+      document.head.removeChild(script)
     }
   }, [])
 
@@ -127,7 +143,7 @@ export default function Home() {
           <div>
             <p className="text-sm leading-relaxed">
               <strong>We offer discounts up to -30%</strong> off the official prices by checking with our trusted agent network. 
-              Choose your desired option, send us a link, and we'll do the rest!
+              Choose your desired option, send us a link, and we&apos;ll do the rest!
             </p>
           </div>
         </div>
@@ -285,7 +301,15 @@ function ReviewsTab({ onBack }: { onBack: () => void }) {
 }
 
 // Submit Request Component
-function SubmitTab({ onBack, user }: { onBack: () => void, user: any }) {
+function SubmitTab({ onBack, user }: { 
+  onBack: () => void, 
+  user: {
+    id: number
+    first_name: string
+    last_name?: string
+    username?: string
+  } | null 
+}) {
   const [service, setService] = useState('')
   const [link, setLink] = useState('')
   const [comment, setComment] = useState('')
@@ -335,7 +359,7 @@ function SubmitTab({ onBack, user }: { onBack: () => void, user: any }) {
           </div>
           <h1 className="text-2xl font-bold mb-4">Thank You!</h1>
           <p className="text-purple-200 mb-6">
-            Your request has been submitted successfully. We'll contact you in Telegram soon!
+            Your request has been submitted successfully. We&apos;ll contact you in Telegram soon!
           </p>
           <Button 
             onClick={onBack}
@@ -362,7 +386,7 @@ function SubmitTab({ onBack, user }: { onBack: () => void, user: any }) {
       <div className="p-4">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold mb-2">Get Your Discount</h2>
-          <p className="text-purple-200">Send us a link and we'll find you the best price!</p>
+          <p className="text-purple-200">Send us a link and we&apos;ll find you the best price!</p>
         </div>
 
         <Card className="bg-white/10 backdrop-blur-sm border-white/20">
