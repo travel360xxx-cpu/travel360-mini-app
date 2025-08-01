@@ -17,11 +17,12 @@ export async function POST(request: NextRequest) {
       received_data: body,
       timestamp: new Date().toISOString()
     })
-  } catch (error) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     return NextResponse.json({ 
       status: 'ERROR', 
       message: 'Test POST failed',
-      error: error.message
+      error: errorMessage
     }, { status: 500 })
   }
 } 
