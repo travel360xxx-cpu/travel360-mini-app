@@ -1,26 +1,164 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #17212b;
+  --foreground: #ffffff;
+  --primary: #0088cc;
+  --primary-foreground: #ffffff;
+  --card: #242f3d;
+  --card-foreground: #ffffff;
+  --muted: #2b5278;
+  --muted-foreground: #a8b8c8;
+  --accent: #2b5278;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #2b5278;
+  --input: #2b5278;
+  --ring: #0088cc;
+  --chat-bg: #0e1621;
+  --message-bg: #182533;
+  --message-out: #2b5278;
+  --sidebar-bg: #17212b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+/* Telegram-like scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Telegram animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes typing {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-typing {
+  animation: typing 1.4s infinite;
+}
+
+/* Telegram-like components */
+.telegram-bg {
+  background: var(--background);
+}
+
+.telegram-sidebar {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+}
+
+.telegram-chat {
+  background: var(--chat-bg);
+}
+
+.telegram-message {
+  background: var(--message-bg);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 4px 0;
+  max-width: 70%;
+}
+
+.telegram-message-out {
+  background: var(--message-out);
+  margin-left: auto;
+}
+
+.telegram-input {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 12px 16px;
+  color: var(--foreground);
+}
+
+.telegram-button {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: 8px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.telegram-button:hover {
+  background: #0077b3;
+}
+
+.telegram-button-secondary {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.telegram-button-secondary:hover {
+  background: #1e4a6b;
 }

@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 360° Travel
 
-## Getting Started
+A minimalist travel application built with React, TypeScript, and Next.js that provides quick access to travel services worldwide.
 
-First, run the development server:
+## 🚀 Features
 
+- **Hotel Search**: Direct link to Booking.com for hotel bookings
+- **Flight Search**: Direct link to Kayak for flight comparisons
+- **Car Rental**: Direct link to RentalCars.com for vehicle rentals
+- **Contact Support**: Direct link to Telegram support channel
+- **Rules & FAQ**: Access to travel policies and frequently asked questions
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: TailwindCSS
+- **Icons**: Lucide React
+- **UI Components**: Custom components with shadcn/ui patterns
+- **Deployment**: Ready for Vercel deployment
+
+## 🎨 Design
+
+- **Primary Background**: Sky blue (#e0f7fa)
+- **Accent Color**: Marine blue (#0077b6)
+- **Typography**: Clean, readable fonts with proper hierarchy
+- **Responsive**: Mobile-first design with desktop optimization
+- **Accessibility**: Proper contrast ratios and semantic HTML
+
+## 📱 Responsive Design
+
+- **Mobile**: Single column layout with optimized touch targets
+- **Tablet**: Two-column grid for better space utilization
+- **Desktop**: Three-column grid with full-width FAQ section
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd travel360
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+### Build for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── globals.css          # Global styles and CSS variables
+│   ├── layout.tsx           # Root layout component
+│   └── page.tsx             # Main page component
+├── components/
+│   ├── ui/                  # Reusable UI components
+│   │   ├── button.tsx       # Button component
+│   │   └── card.tsx         # Card components
+│   └── TravelServiceCard.tsx # Travel service card component
+└── lib/
+    └── utils.ts             # Utility functions
+```
 
-## Deploy on Vercel
+## 🔗 External Services
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Hotels**: [Booking.com](https://www.booking.com)
+- **Flights**: [Kayak](https://www.kayak.com)
+- **Car Rental**: [RentalCars.com](https://www.rentalcars.com)
+- **Support**: [Telegram Channel](https://t.me/travel360net)
+- **FAQ**: [Telegraph Page](https://telegra.ph/360Travel-Rules-and-FAQ-08-01)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎯 Future Enhancements
+
+- [ ] Search filters (countries, dates, etc.)
+- [ ] Google authentication integration
+- [ ] Internal Telegram bot support
+- [ ] Travel booking history
+- [ ] Price comparison features
+- [ ] Multi-language support
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📞 Support
+
+For support and questions, please contact us via [Telegram](https://t.me/travel360net).
