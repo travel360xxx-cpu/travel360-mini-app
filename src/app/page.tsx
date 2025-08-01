@@ -141,12 +141,51 @@ export default function Home() {
             <span className="text-yellow-900 text-xs font-bold">💡</span>
           </div>
           <div>
-            <p className="text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed text-center">
               <strong>We offer discounts up to -30%</strong> off the official prices by checking with our trusted agent network. 
               Choose your desired option, send us a link, and we&apos;ll do the rest!
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Customer Reviews Section - Moved to top */}
+      <div className="px-4 mb-6">
+        <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-teal-400 rounded-lg flex items-center justify-center">
+                  <Users className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold">Customer Reviews</h3>
+                  <p className="text-purple-200 text-sm">See what our clients say</p>
+                </div>
+              </div>
+              <Button 
+                variant="ghost" 
+                className="text-white hover:bg-white/20"
+                onClick={() => setActiveTab('reviews')}
+              >
+                View All
+                <ExternalLink className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+            
+            {/* Reviews Gallery - 30 reviews */}
+            <div className="grid grid-cols-5 gap-2">
+              {Array.from({ length: 30 }, (_, i) => (
+                <div key={i} className="aspect-square bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
+                  <div className="text-center">
+                    <div className="text-white text-xs font-bold">⭐</div>
+                    <div className="text-white text-xs">Review {i + 1}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Services Grid */}
@@ -180,28 +219,50 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Reviews Button */}
+      {/* About Us Section */}
       <div className="px-4 mb-6">
         <Card className="bg-white/10 backdrop-blur-sm border-white/20">
           <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-teal-400 rounded-lg flex items-center justify-center">
-                  <Users className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold">Customer Reviews</h3>
-                  <p className="text-purple-200 text-sm">See what our clients say</p>
-                </div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg flex items-center justify-center">
+                <span className="text-white text-lg font-bold">ℹ️</span>
               </div>
-              <Button 
-                variant="ghost" 
-                className="text-white hover:bg-white/20"
-                onClick={() => setActiveTab('reviews')}
-              >
-                View All
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
+              <div>
+                <h3 className="text-white font-semibold">О нас</h3>
+                <p className="text-purple-200 text-sm">Узнайте больше о нашей компании</p>
+              </div>
+            </div>
+            <div className="space-y-2 text-sm text-purple-200">
+              <p>🚀 <strong>360° Travel</strong> - ваш надежный партнер в путешествиях с 2020 года</p>
+              <p>🌟 Мы работаем с проверенными партнерами по всему миру</p>
+              <p>💎 Предоставляем эксклюзивные скидки до -30% от официальных цен</p>
+              <p>📞 Круглосуточная поддержка клиентов</p>
+              <p>✅ Более 10,000 довольных клиентов</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Order Rules Section */}
+      <div className="px-4 mb-6">
+        <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-teal-400 rounded-lg flex items-center justify-center">
+                <span className="text-white text-lg font-bold">📋</span>
+              </div>
+              <div>
+                <h3 className="text-white font-semibold">Правила заказа</h3>
+                <p className="text-purple-200 text-sm">Как заказать услугу</p>
+              </div>
+            </div>
+            <div className="space-y-2 text-sm text-purple-200">
+              <p>1️⃣ Выберите нужную услугу (отель, авиабилет, аренда авто)</p>
+              <p>2️⃣ Нажмите на кнопку и перейдите на сайт партнера</p>
+              <p>3️⃣ Найдите подходящий вариант и скопируйте ссылку</p>
+              <p>4️⃣ Отправьте ссылку нам через кнопку &quot;Contact Us&quot;</p>
+              <p>5️⃣ Мы найдем лучшую цену и свяжемся с вами в Telegram</p>
+              <p>6️⃣ После подтверждения бронируем и отправляем подтверждение</p>
             </div>
           </CardContent>
         </Card>
