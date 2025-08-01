@@ -1,6 +1,6 @@
-const TelegramBot = require('node-telegram-bot-api');
-const fs = require('fs');
-const path = require('path');
+import TelegramBot from 'node-telegram-bot-api';
+import fs from 'fs';
+import path from 'path';
 
 const token = process.env.TELEGRAM_BOT_TOKEN || '8381245817:AAEXDwxX2Ygtvw1Idohmppw5Fg_K4g1bET8';
 const bot = new TelegramBot(token, { polling: false });

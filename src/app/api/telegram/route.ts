@@ -85,7 +85,7 @@ async function handleCommand(chatId: number, command: string) {
   }
 }
 
-async function handleMessage(chatId: number, text: string) {
+async function handleMessage(chatId: number, _text: string) {
   const welcomeMessage = `👋 Привет! Я 360° Travel Bot - ваш помощник в путешествиях!
 
 Доступные команды:
