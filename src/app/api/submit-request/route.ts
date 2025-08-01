@@ -4,8 +4,8 @@ import TelegramBot from 'node-telegram-bot-api'
 const token = process.env.TELEGRAM_BOT_TOKEN || '8381245817:AAEXDwxX2Ygtvw1Idohmppw5Fg_K4g1bET8'
 const bot = new TelegramBot(token, { polling: false })
 
-// ID чата для получения заявок (замените на ваш ID)
-const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '123456789'
+// ID чата для получения заявок
+const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '5556355354'
 
 export async function GET() {
   return NextResponse.json({ 
@@ -46,34 +46,21 @@ export async function POST(request: NextRequest) {
 
     console.log('📤 Sending message to admin:', ADMIN_CHAT_ID)
 
-    // Временное решение для тестирования - логируем сообщение вместо отправки в Telegram
-    if (ADMIN_CHAT_ID === '123456789') {
-      console.warn('⚠️ ADMIN_CHAT_ID is placeholder, logging message instead')
-      console.log('📨 MESSAGE FOR ADMIN:', message)
-      
-      // Для тестирования отправляем сообщение в логи
-      return NextResponse.json({ 
-        success: true, 
-        message: 'Заявка отправлена! (тестовый режим)',
-        logged_message: message
-      })
-    } else {
-      // Отправляем заявку администратору с inline keyboard
-      await bot.sendMessage(ADMIN_CHAT_ID, message, {
-        parse_mode: 'HTML',
-        reply_markup: {
-          inline_keyboard: [
-            [
-              { text: '✅ Принять', callback_data: `accept_${user?.id || 'unknown'}` },
-              { text: '❌ Отклонить', callback_data: `reject_${user?.id || 'unknown'}` }
-            ],
-            [
-              { text: '💬 Ответить', callback_data: `reply_${user?.id || 'unknown'}` }
-            ]
+    // Отправляем заявку администратору с inline keyboard
+    await bot.sendMessage(ADMIN_CHAT_ID, message, {
+      parse_mode: 'HTML',
+      reply_markup: {
+        inline_keyboard: [
+          [
+            { text: '✅ Принять', callback_data: `accept_${user?.id || 'unknown'}` },
+            { text: '❌ Отклонить', callback_data: `reject_${user?.id || 'unknown'}` }
+          ],
+          [
+            { text: '💬 Ответить', callback_data: `reply_${user?.id || 'unknown'}` }
           ]
-        }
-      })
-    }
+        ]
+      }
+    })
 
     console.log('✅ Message sent successfully')
     return NextResponse.json({ success: true, message: 'Заявка отправлена!' })
