@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Building2, Plane, Car, MessageCircle, Star, ExternalLink, Send, Users, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 
 // Telegram WebApp SDK
 declare global {
@@ -141,7 +141,7 @@ export default function App() {
           </div>
           <div>
             <p className="text-sm leading-relaxed">
-              <strong>We offer discounts up to -30%</strong> off the official prices by checking with our trusted agent network. Choose your desired option, send us a link, and we'll do the rest!
+              <strong>We offer discounts up to -30%</strong> off the official prices by checking with our trusted agent network. Choose your desired option, send us a link, and we&apos;ll do the rest!
             </p>
           </div>
         </div>
@@ -324,7 +324,7 @@ function SubmitTab({ onBack, user }: {
           </div>
           <h1 className="text-2xl font-bold mb-4">Thank You!</h1>
           <p className="text-purple-200 mb-6">
-            Your request has been submitted successfully. We'll contact you in Telegram soon!
+            Your request has been submitted successfully. We&apos;ll contact you in Telegram soon!
           </p>
           <Button 
             onClick={onBack}
@@ -351,7 +351,7 @@ function SubmitTab({ onBack, user }: {
       <div className="p-4">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold mb-2">Get Your Discount</h2>
-          <p className="text-purple-200">Send us a link and we'll find you the best price!</p>
+                      <p className="text-purple-200">Send us a link and we&apos;ll find you the best price!</p>
         </div>
 
         <Card className="bg-white/10 backdrop-blur-sm border-white/20">
