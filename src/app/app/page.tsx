@@ -350,7 +350,12 @@ function SubmitTab({ onBack, user }: {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = async () => {
-    if (!service || !link) return
+    if (!service || !link) {
+      console.log('❌ Service or link is missing:', { service, link })
+      return
+    }
+
+    console.log('🚀 Submitting request:', { service, link, comment, user })
 
     try {
       // Отправляем заявку через наш API
@@ -366,13 +371,21 @@ function SubmitTab({ onBack, user }: {
         })
       })
 
+      console.log('📡 Response status:', response.status)
+      console.log('📡 Response headers:', response.headers)
+
       if (response.ok) {
+        const result = await response.json()
+        console.log('✅ Request submitted successfully:', result)
         setIsSubmitted(true)
       } else {
-        console.error('Error submitting request')
+        const errorText = await response.text()
+        console.error('❌ Error submitting request:', response.status, errorText)
+        alert(`Ошибка при отправке заявки: ${response.status}`)
       }
     } catch (error) {
-      console.error('Error sending request:', error)
+      console.error('❌ Error sending request:', error)
+      alert('Ошибка сети при отправке заявки')
     }
   }
 
