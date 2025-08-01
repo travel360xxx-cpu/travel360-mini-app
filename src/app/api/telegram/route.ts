@@ -4,6 +4,15 @@ import TelegramBot from 'node-telegram-bot-api'
 const token = process.env.TELEGRAM_BOT_TOKEN || '8381245817:AAEXDwxX2Ygtvw1Idohmppw5Fg_K4g1bET8'
 const bot = new TelegramBot(token, { polling: false })
 
+export async function GET() {
+  return NextResponse.json({ 
+    status: 'Telegram webhook is ready',
+    timestamp: new Date().toISOString(),
+    bot: '360Travel',
+    version: '1.0.1'
+  })
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -38,6 +47,17 @@ export async function POST(request: NextRequest) {
 }
 
 async function handleCommand(chatId: number, command: string) {
+  // Обработка команды ответа пользователю
+  if (command.startsWith('/reply ')) {
+    const parts = command.split(' ')
+    if (parts.length >= 3) {
+      const userId = parts[1]
+      const message = parts.slice(2).join(' ')
+      await sendReplyToUser(chatId, userId, message)
+      return
+    }
+  }
+
   switch (command) {
     case '/start':
       await sendWelcomeMessage(chatId)
@@ -82,6 +102,13 @@ async function handleMessage(chatId: number, _text: string) {
 }
 
 async function handleCallback(chatId: number, data: string) {
+  // Обработка заявок
+  if (data.startsWith('accept_') || data.startsWith('reject_') || data.startsWith('reply_')) {
+    await handleRequestCallback(chatId, data)
+    return
+  }
+
+  // Обычные callback'ы
   switch (data) {
     case 'hotels':
       await sendHotelsMessage(chatId)
@@ -118,7 +145,7 @@ async function sendWelcomeMessage(chatId: number) {
       [
         { 
           text: '🚀 Открыть Mini App', 
-          web_app: { url: 'https://travel360-mini-app.vercel.app' }
+          web_app: { url: 'https://travel360.vercel.app' }
         }
       ],
       [
@@ -147,6 +174,8 @@ async function sendHelpMessage(chatId: number) {
 💬 /contact - Связаться с поддержкой
 📘 /rules - Правила и часто задаваемые вопросы
 ❓ /help - Показать эту справку
+
+🚀 Откройте Mini App для отправки заявок на скидки!
 
 Просто отправьте команду или используйте кнопки в главном меню!`
 
@@ -241,4 +270,45 @@ async function sendUnknownCommandMessage(chatId: number) {
 Используйте /help для просмотра доступных команд или выберите услугу из главного меню.`
 
   await bot.sendMessage(chatId, message)
+}
+
+async function handleRequestCallback(chatId: number, data: string) {
+  const [action, userId] = data.split('_')
+  
+  switch (action) {
+    case 'accept':
+      await bot.sendMessage(chatId, `✅ Заявка от пользователя ${userId} принята!`)
+      // Уведомляем пользователя
+      try {
+        await bot.sendMessage(userId, `✅ Ваша заявка принята! Мы свяжемся с вами в ближайшее время.`)
+      } catch (error) {
+        console.error('Error notifying user:', error)
+      }
+      break
+    case 'reject':
+      await bot.sendMessage(chatId, `❌ Заявка от пользователя ${userId} отклонена.`)
+      // Уведомляем пользователя
+      try {
+        await bot.sendMessage(userId, `❌ К сожалению, ваша заявка не может быть обработана. Обратитесь к нам для уточнения деталей.`)
+      } catch (error) {
+        console.error('Error notifying user:', error)
+      }
+      break
+    case 'reply':
+      await bot.sendMessage(chatId, `💬 Для ответа пользователю ${userId} используйте команду /reply ${userId} <ваше сообщение>`)
+      break
+  }
+}
+
+async function sendReplyToUser(adminChatId: number, userId: string, message: string) {
+  try {
+    // Отправляем сообщение пользователю
+    await bot.sendMessage(userId, `💬 Ответ от поддержки:\n\n${message}`)
+    
+    // Подтверждаем администратору
+    await bot.sendMessage(adminChatId, `✅ Сообщение отправлено пользователю ${userId}`)
+  } catch (error) {
+    console.error('Error sending reply to user:', error)
+    await bot.sendMessage(adminChatId, `❌ Ошибка при отправке сообщения пользователю ${userId}`)
+  }
 } 

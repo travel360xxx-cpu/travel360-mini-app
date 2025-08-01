@@ -318,33 +318,25 @@ function SubmitTab({ onBack, user }: {
   const handleSubmit = async () => {
     if (!service || !link) return
 
-    // Отправляем заявку в Telegram бот
     try {
-      const message = `
-🎯 Новая заявка от ${user?.first_name || 'Пользователя'}!
-
-📋 Услуга: ${service}
-🔗 Ссылка: ${link}
-💬 Комментарий: ${comment || 'Не указан'}
-
-👤 Пользователь: ${user?.first_name} ${user?.last_name || ''} (@${user?.username || 'без username'})
-🆔 ID: ${user?.id || 'неизвестно'}
-      `.trim()
-
-      // Отправляем сообщение в бот
-      await fetch(`https://api.telegram.org/bot8381245817:AAEXDwxX2Ygtvw1Idohmppw5Fg_K4g1bET8/sendMessage`, {
+      // Отправляем заявку через наш API
+      const response = await fetch('/api/submit-request', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          chat_id: user?.id || 'YOUR_CHAT_ID', // Замените на ваш chat_id
-          text: message,
-          parse_mode: 'HTML'
+          service,
+          details: `Ссылка: ${link}\nКомментарий: ${comment || 'Не указан'}`,
+          user
         })
       })
 
-      setIsSubmitted(true)
+      if (response.ok) {
+        setIsSubmitted(true)
+      } else {
+        console.error('Error submitting request')
+      }
     } catch (error) {
       console.error('Error sending request:', error)
     }
