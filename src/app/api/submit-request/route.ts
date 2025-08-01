@@ -46,12 +46,17 @@ export async function POST(request: NextRequest) {
 
     console.log('📤 Sending message to admin:', ADMIN_CHAT_ID)
 
-    // Проверяем, что ADMIN_CHAT_ID не является placeholder
+    // Временное решение для тестирования - логируем сообщение вместо отправки в Telegram
     if (ADMIN_CHAT_ID === '123456789') {
-      console.warn('⚠️ ADMIN_CHAT_ID is placeholder, sending to bot owner instead')
+      console.warn('⚠️ ADMIN_CHAT_ID is placeholder, logging message instead')
+      console.log('📨 MESSAGE FOR ADMIN:', message)
       
-      // Отправляем сообщение без inline keyboard для тестирования
-      await bot.sendMessage(ADMIN_CHAT_ID, message)
+      // Для тестирования отправляем сообщение в логи
+      return NextResponse.json({ 
+        success: true, 
+        message: 'Заявка отправлена! (тестовый режим)',
+        logged_message: message
+      })
     } else {
       // Отправляем заявку администратору с inline keyboard
       await bot.sendMessage(ADMIN_CHAT_ID, message, {
