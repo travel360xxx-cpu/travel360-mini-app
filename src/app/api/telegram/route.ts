@@ -145,7 +145,7 @@ async function sendWelcomeMessage(chatId: number) {
       [
         { 
           text: '🚀 Открыть Mini App', 
-          web_app: { url: 'https://travel360-mini-app-e5uw.vercel.app/?v=' + Math.random().toString(36).substring(7) }
+          web_app: { url: 'https://travel360-mini-app-p2z4.vercel.app/?v=' + Math.random().toString(36).substring(7) }
         }
       ],
       [
