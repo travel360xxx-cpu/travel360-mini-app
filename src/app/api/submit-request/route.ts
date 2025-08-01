@@ -64,14 +64,15 @@ export async function POST(request: NextRequest) {
 
     console.log('✅ Message sent successfully')
     return NextResponse.json({ success: true, message: 'Заявка отправлена!' })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('❌ Error submitting request:', error)
     
     // Более детальная обработка ошибок
-    if (error?.response) {
-      console.error('📋 Telegram API error:', error.response.body)
+    if (error && typeof error === 'object' && 'response' in error) {
+      const telegramError = error as { response: { body?: { description?: string } } }
+      console.error('📋 Telegram API error:', telegramError.response.body)
       return NextResponse.json(
-        { error: `Ошибка Telegram API: ${error.response.body?.description || 'Unknown error'}` }, 
+        { error: `Ошибка Telegram API: ${telegramError.response.body?.description || 'Unknown error'}` }, 
         { status: 500 }
       )
     }
