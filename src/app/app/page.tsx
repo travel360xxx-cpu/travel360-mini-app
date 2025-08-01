@@ -358,8 +358,8 @@ function SubmitTab({ onBack, user }: {
     console.log('🚀 Submitting request:', { service, link, comment, user })
 
     try {
-      // Отправляем заявку через наш API
-      const response = await fetch('/api/submit-request', {
+      // Отправляем заявку через наш API (временно используем тестовый endpoint)
+      const response = await fetch('/api/test', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
